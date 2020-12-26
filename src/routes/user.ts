@@ -9,7 +9,6 @@ router.get("/", (req: express.Request, res: express.Response) => {
 
 /* POST */
 router.post("/", (req: express.Request, res: express.Response) => {
-  console.log(req.body);
   res.send("post api is running");
 });
 
