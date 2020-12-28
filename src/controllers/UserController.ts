@@ -1,18 +1,31 @@
-import { JsonController, Param, Body, Get, Post } from "routing-controllers";
+import { inject } from "inversify";
+import {
+  interfaces,
+  controller,
+  httpGet,
+  httpPost,
+  requestParam,
+  requestBody,
+} from "inversify-express-utils";
 import User from "@entities/User";
-import UserRepositoryImpl from "@repositories/UserRepositoryImpl";
+import UserRepository from "@repositories/UserRepository";
 
-@JsonController("/users")
-export class UserController {
-  @Get("/:id")
-  async find(@Param("id") id: number): Promise<User | undefined> {
-    const userRepository = new UserRepositoryImpl();
-    const user = await userRepository.findById(id);
+@controller("/users")
+export class UserController implements interfaces.Controller {
+  private userRepository: UserRepository;
+
+  constructor(@inject("UserRepository") userRepository: UserRepository) {
+    this.userRepository = userRepository;
+  }
+
+  @httpGet("/:id")
+  async find(@requestParam("id") id: number): Promise<User | undefined> {
+    const user = await this.userRepository.findById(id);
     return user;
   }
 
-  @Post("/")
-  post(@Body() user: User): string {
+  @httpPost("/")
+  post(@requestBody() user: User): string {
     console.log(user);
     return "ok";
   }
