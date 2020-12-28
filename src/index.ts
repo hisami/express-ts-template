@@ -1,32 +1,19 @@
 import express from "express";
-import userRouter from "@routes/user";
+import "reflect-metadata";
+import { createExpressServer } from "routing-controllers";
+import { UserController } from "./controllers/UserController";
 import { getConnectionOptions, createConnection, BaseEntity } from "typeorm";
 
 const main = async () => {
-  const app: express.Express = express();
-
-  // CORSの許可
-  app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header(
-      "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content-Type, Accept"
-    );
-    next();
+  const app: express.Express = createExpressServer({
+    routePrefix: "/api",
+    controllers: [UserController],
   });
 
-  // リクエストの解析
-  app.use(express.json());
-  app.use(express.urlencoded({ extended: true }));
-
-  // --- TypeORMの設定
+  // TypeORMの設定
   const connectionOptions = await getConnectionOptions();
   const connection = await createConnection(connectionOptions);
-  // ActiveRecordパターンでTypeORMを使用する場合
-  BaseEntity.useConnection(connection);
-
-  // ルーティング
-  app.use("/api/users", userRouter);
+  BaseEntity.useConnection(connection); // ActiveRecordパターンで使用
 
   // 3000番ポートでサーバ起動
   app.listen(3000, () => {
