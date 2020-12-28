@@ -44,6 +44,12 @@
       "@/*": [
         "src/*"
       ],
+      "@entities/*": [
+        "src/entities/*"
+      ],
+      "@repositories/*": [
+        "src/repositories/*"
+      ],
       "@routes/*": [
         "src/routes/*"
       ],
