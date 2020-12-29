@@ -11,7 +11,7 @@ import User from "@entities/User";
 import UserRepository from "@repositories/UserRepository";
 
 @controller("/users")
-export class UserController implements interfaces.Controller {
+export default class UserController implements interfaces.Controller {
   private userRepository: UserRepository;
 
   constructor(@inject("UserRepository") userRepository: UserRepository) {

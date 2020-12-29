@@ -44,6 +44,9 @@
       "@/*": [
         "src/*"
       ],
+      "@controllers/*": [
+        "src/controllers/*"
+      ],
       "@entities/*": [
         "src/entities/*"
       ],

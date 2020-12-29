@@ -3,7 +3,6 @@ version: "3"
 services:
   db:
     image: mysql:5.7
-    container_name: express-ts-db
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: express_ts
