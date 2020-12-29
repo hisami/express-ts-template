@@ -8,6 +8,11 @@ docker-compose up -d
 docker-compose down
 ```
 
+### 設定ファイルの作成
+```
+cp .env.example .env
+```
+
 ### パッケージインストール
 ```
 yarn
