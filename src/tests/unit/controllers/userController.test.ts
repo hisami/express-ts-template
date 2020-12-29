@@ -13,14 +13,42 @@ const testUser: User = {
 };
 UserRepositoryImplMock.mockImplementationOnce(() => {
   return {
+    find: (): User[] => {
+      return [testUser];
+    },
     findById: (): User => {
+      return testUser;
+    },
+    create: (): User => {
+      return testUser;
+    },
+    update: (): User => {
+      return testUser;
+    },
+    remove: (): User => {
       return testUser;
     },
   };
 });
+// モック化されたリポジトリのインスタンスを生成
+const userRepositoryImpl = new UserRepositoryImpl();
+// コントローラへ注入
+const userController = new UserController(userRepositoryImpl);
 
-test("単一のユーザを取得できる", async () => {
-  const userRepositoryImpl = new UserRepositoryImpl();
-  const userController = new UserController(userRepositoryImpl);
-  expect(await userController.find(1)).toBe(testUser);
+describe("UserControllerのテスト", () => {
+  test("全てのユーザを取得", async () => {
+    expect(await userController.find()).toEqual([testUser]);
+  });
+  test("単一のユーザを取得", async () => {
+    expect(await userController.findById(1)).toEqual(testUser);
+  });
+  test("ユーザを作成", async () => {
+    expect(await userController.create(testUser)).toEqual(testUser);
+  });
+  test("ユーザを更新", async () => {
+    expect(await userController.update(1, testUser)).toEqual(testUser);
+  });
+  test("ユーザを削除", async () => {
+    expect(await userController.remove(1)).toEqual(testUser);
+  });
 });
