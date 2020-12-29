@@ -1,6 +1,6 @@
 import express from "express";
 import "reflect-metadata";
-import { getConnectionOptions, createConnection, BaseEntity } from "typeorm";
+import { getConnectionOptions, createConnection } from "typeorm";
 import { InversifyExpressServer } from "inversify-express-utils";
 
 import container from "./inversify.config";
@@ -10,8 +10,7 @@ import "./controllers/UserController";
 const main = async () => {
   // TypeORMの設定
   const connectionOptions = await getConnectionOptions();
-  const connection = await createConnection(connectionOptions);
-  BaseEntity.useConnection(connection); // ActiveRecordパターンで使用
+  await createConnection(connectionOptions);
 
   // DIコンテナがセットされたexpressサーバ
   const server = new InversifyExpressServer(
