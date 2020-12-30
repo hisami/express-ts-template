@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon",
     "start": "ts-node -T -r tsconfig-paths/register ./src/index.ts",
-    "test": "jest"
+    "test": "jest",
+    "migrate": "ts-node node_modules/.bin/typeorm migration:run"
   },
   "keywords": [],
   "author": "",

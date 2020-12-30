@@ -18,6 +18,11 @@ cp .env.example .env
 yarn
 ```
 
+### DBマイグレーション 
+```
+yarn migrate
+```
+
 ### ローカルサーバ起動
 watchあり
 ```
@@ -27,3 +32,7 @@ watchなし
 ```
 yarn start
 ```
+
+### 動作確認
+GET http://localhost:3000/api/users
+→空配列が返ってくればOK
